@@ -1,0 +1,29 @@
+version: "3"
+services:
+  prometheus:
+    image: bitnami/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - "prometheus:/opt/bitnami/prometheus/data"
+      - "./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml:ro"
+
+  loki:
+    image: grafana/loki:2.6.0
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  grafana:
+    image: grafana/grafana-oss
+    ports:
+      - "3000:3000"
+    volumes:
+      - "grafana:/var/lib/grafana"
+
+  client:
+    build: .
+    
+volumes:
+  prometheus:
+  grafana:
