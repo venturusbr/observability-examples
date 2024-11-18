@@ -18,6 +18,35 @@ The containerized projects will run on any machine that is running Docker(tested
 The tutorial to run the examples are in their respective folder. In most cases, just following the README.md file is
 enough to put them running.
 
+## Running using Docker Compose
+
+1. Go to directory "./examples/python/fastapi"
+2. Run: `docker compose run`
+3. Check if *prometheus*, *loki*, *graphana* and *fastapi* containers started well.
+4. Access Graphana using your browser at: `http://localhost:3000`
+   1. First time access user and password are: `admin`
+   2. Set your new admin password!
+5. Create a Prometheus data source:
+   1. On the left side panel in Graphana, go to option **Data sources**
+   2. On the top right corner, select  **" + add new data source"**
+   3. Select **"Prometheus"**
+   4. Configure in the **Conncetion** section the "Prometheus server URL" with `http://prometheus:9090`
+   5. Save and test!
+6. Import the dashboard:
+   1. On the left side panel, go to **Dashboards**
+   2. On the top right corner, select  **"New -> New dashboard"**
+   3. Select "Import a dashboard"
+   4. Upload the "*graphana_dashboard.json*" file
+   5. Select the Prometheus data source created early.
+   6. Import!
+   
+## Making counters work
+
+To see the metrics turning into cool graphics we must access the FastAPI application endpoint and then see counters raising in Graphana.
+
+1. Call the "hello" endpoint inserting the following URL in your browser: `http://127.0.0.1:8000/hello`
+2. Do it more 5 times
+3. Go to Graphana dashboards and see the counter Fastapi Hello raising
 
 # How to contribute
 
